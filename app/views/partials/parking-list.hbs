@@ -1,0 +1,21 @@
+<div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+  <table class="uk-table">
+    <caption>
+      Camper Parkings
+    </caption>
+    <thead>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Added by</th>
+    </thead>
+    <tbody class="uk-text-left">
+      {{#each parkings}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{description}}</td>
+          <td> {{user.firstName}} {{user.lastName}} </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
