@@ -27,6 +27,8 @@ const Parkings = {
         const newParking = new Parking({
           name: data.name,
           description: data.description,
+          pros: data.pros,
+          cons: data.cons,
           user: user._id
         });
         await newParking.save();

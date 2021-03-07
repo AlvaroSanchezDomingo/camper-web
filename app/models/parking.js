@@ -5,7 +5,10 @@ const Schema = Mongoose.Schema;
 
 const parkingSchema = new Schema({
   name: String,
+  category: String,
   description: String,
+  pros: String,
+  cons: String,
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
