@@ -14,5 +14,12 @@ const parkingSchema = new Schema({
     ref: "User",
   },
 });
+parkingSchema.statics.findByUser = function(user) {
+  return this.find({ user : user});
+};
+
+parkingSchema.statics.findById = function(id) {
+  return this.findOne({ _id : id});
+};
 
 module.exports = Mongoose.model("parking", parkingSchema);

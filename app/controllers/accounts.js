@@ -24,6 +24,7 @@ const Accounts = {
         lastName: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().required(),
+        repeat_password: Joi.ref('password'),
       },
       options: {
         abortEarly: false,
@@ -54,7 +55,7 @@ const Accounts = {
         });
         user = await newUser.save();
         request.cookieAuth.set({ id: user.id });
-        return h.redirect("/newparking");
+        return h.redirect("/showparkings");
       } catch (err) {
         return h.view("signup", { errors: [{ message: err.message }] });
       }
@@ -96,7 +97,7 @@ const Accounts = {
         }
         user.comparePassword(password);
         request.cookieAuth.set({ id: user.id });
-        return h.redirect("/newparking");
+        return h.redirect("/showparkings");
       } catch (err) {
         return h.view("login", { errors: [{ message: err.message }] });
       }
