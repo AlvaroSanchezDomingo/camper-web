@@ -14,13 +14,24 @@ const Parkings = {
         return h.view("showparkings-list", {
           title: "User camper parking",
           parkings: parkings,
-          showownparkings: true, //This is not working
         });
       } catch (err) {
         return h.view("login", { errors: [{ message: err.message }] });
       }
     }
   },
+  viewParking: {
+    handler: async function(request, h) {
+      try {
+        const id = request.params.id;
+        const parking = await Parking.findById(id).populate("user").lean()
+        return h.view("showparking", { title: "View parking", parking: parking });
+      } catch (err) {
+        return h.view("login", { errors: [{ message: err.message }] });
+      }
+    }
+  },
+
   newParking: {
     handler: function(request, h) {
       return h.view("newparking", { title: "Create new parking" });
@@ -112,14 +123,14 @@ const Parkings = {
       try {
         const parkingEdit = request.payload;
         const id = request.params.id;
-        const parking = await Parking.findById(id).populate("user").lean();
+        const parking = await Parking.findById(id).populate("user");
         parking.name = parkingEdit.name;
         parking.category = parkingEdit.category;
         parking.pros = parkingEdit.pros;
         parking.cons = parkingEdit.cons;
         parking.description = parkingEdit.description;
         await parking.save();
-        return h.redirect("/showuserparkings");
+        return h.redirect("/showparkings");
       } catch (err) {
         return h.view("main", { errors: [{ message: err.message }] });
       }

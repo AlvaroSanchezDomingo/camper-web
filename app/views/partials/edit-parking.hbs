@@ -36,14 +36,16 @@
         <div class="uk-margin">
             <label class="uk-form-label" for="form-stacked-text">Parking Description</label>
             <div class="uk-form-controls">
-                <textarea class="uk-textarea" id="form-stacked-text" type="text" rows="5"name="description" value={{parking.description}}></textarea>
+                <textarea class="uk-textarea" id="form-stacked-text" type="text" rows="5" name="description">{{parking.description}}</textarea>
+
             </div>
         </div>
 
           <div class="uk-margin">
-              <button class="submit uk-button uk-button-primary uk-button-large uk-width-1-1">Add</button>
+              <button class="submit uk-button uk-button-primary uk-button-large uk-width-1-1">Save</button>
           </div>
       </div>
     </div>
+      {{> error }}
   </form>
 </div>
