@@ -13,7 +13,6 @@ module.exports = [
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
 
   { method: "GET", path: "/showparkings", config: Parkings.showParkings },
-  { method: "GET", path: "/showuserparkings", config: Parkings.showUserParkings },
   { method: "GET", path: "/newparking", config: Parkings.newParking },
   { method: "POST", path: "/addparking", config: Parkings.addParking },
   { method: "GET", path: "/deleteparking/{id}", config: Parkings.deleteParking },

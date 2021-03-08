@@ -26,10 +26,8 @@
                 <div class="uk-card-footer">
                     <p uk-margin>
                         <a href="/viewparking/{{_id}}" class="uk-button uk-button-primary uk-button-small" uk-icon="sign-in"></a>
-                        {{#if true}}
-                         <a href="/editparking/{{_id}}" class="uk-button uk-button-secondary uk-button-small" uk-icon="file-edit"></a>
-                         <a href="/deleteparking/{{_id}}" class="uk-button uk-button-danger uk-button-small" uk-icon="trash" onclick="UIkit.notification({message: 'Parking deleted'})"></a>
-                        {{/if}}
+                        <a href="/editparking/{{_id}}" class="uk-button uk-button-secondary uk-button-small" uk-icon="file-edit"></a>
+                        <a href="/deleteparking/{{_id}}" class="uk-button uk-button-danger uk-button-small" uk-icon="trash" onclick="UIkit.notification({message: 'Parking deleted'})"></a>
                     </p>
                 </div>
             </div>
