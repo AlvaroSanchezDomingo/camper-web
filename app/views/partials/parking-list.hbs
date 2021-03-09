@@ -1,21 +1,35 @@
 <div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-  <table class="uk-table">
-    <caption>
-      Camper Parkings
-    </caption>
-    <thead>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Added by</th>
-    </thead>
-    <tbody class="uk-text-left">
-      {{#each parkings}}
-        <tr>
-          <td>{{name}}</td>
-          <td>{{description}}</td>
-          <td> {{user.firstName}} {{user.lastName}} </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
+    {{#each parkings}}
+        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+            <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+                <img src="images/camper2.png" alt="" uk-cover>
+            </div>
+            <div>
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img class="uk-border-circle" width="40" height="40" src="images/camper2.png">
+                            <p class="uk-text-meta uk-margin-remove-top">{{category}}</p>
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 class="uk-card-title uk-margin-remove-bottom">{{name}}</h3>
+                            <p class="uk-text-meta uk-margin-remove-top">{{user.firstName}} {{user.lastName}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <p class= "uk-text-success">{{pros}}</p>
+                    <p class= "uk-text-danger">{{cons}}</p>
+                </div>
+
+                <div class="uk-card-footer">
+                    <p uk-margin>
+                        <a href="/viewparking/{{_id}}" class="uk-button uk-button-primary uk-button-small" uk-icon="sign-in"></a>
+                        <a href="/editparking/{{_id}}" class="uk-button uk-button-secondary uk-button-small" uk-icon="file-edit"></a>
+                        <a href="/deleteparking/{{_id}}" class="uk-button uk-button-danger uk-button-small" uk-icon="trash" onclick="UIkit.notification({message: 'Parking deleted'})"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {{/each}}
 </div>

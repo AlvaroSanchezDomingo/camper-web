@@ -1,5 +1,4 @@
 "use strict";
-
 const Accounts = require("./app/controllers/accounts");
 const Parkings = require("./app/controllers/parkings");
 
@@ -16,6 +15,10 @@ module.exports = [
   { method: "GET", path: "/showparkings", config: Parkings.showParkings },
   { method: "GET", path: "/newparking", config: Parkings.newParking },
   { method: "POST", path: "/addparking", config: Parkings.addParking },
+  { method: "GET", path: "/deleteparking/{id}", config: Parkings.deleteParking },
+  { method: 'GET', path: "/editparking/{id}", config: Parkings.showEditParking },
+  { method: "POST", path: "/editparking/{id}", config: Parkings.editParking },
+  { method: "GET", path: "/viewparking/{id}", config: Parkings.viewParking },
 
 
   {
