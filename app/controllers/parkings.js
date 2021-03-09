@@ -40,11 +40,11 @@ const Parkings = {
   addParking: {
     validate: {
       payload: {
-        name: Joi.string().max(100).required(),
+        name: Joi.string().max(200).required(),
         category: Joi.string().required(),
-        description: Joi.string().min(50).max(1000).required(),
-        pros: Joi.string().max(100).required(),
-        cons: Joi.string().max(100).required(),
+        description: Joi.string().min(50).max(3000).required(),
+        pros: Joi.string().max(200).required(),
+        cons: Joi.string().max(200).required(),
       },
       options: {
         abortEarly: false,
@@ -83,7 +83,7 @@ const Parkings = {
     handler: async function(request, h) {
       const id = request.params.id;
       await Parking.deleteOne({ _id: id });
-      return h.redirect("/showuserparkings");
+      return h.redirect("/showparkings");
     }
   },
   showEditParking: {

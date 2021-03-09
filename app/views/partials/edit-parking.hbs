@@ -1,51 +1,60 @@
-<div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-  <form class="uk-form-stacked uk-text-left" action="/editparking/{{parking._id}}" method="POST">
-    <div class="uk-grid uk-grid-stack">
-      <div class="uk-width-1-1@m">
 
-        <div class="uk-margin">
-          <label class="uk-form-label" for="form-stacked-text">Parking Name</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" name="name" value={{parking.name}} />
-          </div>
-        </div>
-         <div class="uk-margin">
-           <label class="uk-form-label" for="form-stacked-text">Category</label>
-             <select class="uk-select" name="category" value={{parking.category}}>
-                  <option value='Nature'>Nature</option>
-                  <option value='Public'>Public</option>
-                  <option value='Private'>Private</option>
-                  <option value='Camping'>Camping</option>
-             </select>
-         </div>
-
-          <div class="uk-margin">
-              <label class="uk-form-label" for="form-stacked-text">Pros</label>
-              <div class="uk-form-controls">
-                  <input class="uk-input" id="form-stacked-text" type="text" name="pros" value={{parking.pros}} />
-              </div>
-          </div>
-
-          <div class="uk-margin">
-              <label class="uk-form-label" for="form-stacked-text">Cons</label>
-              <div class="uk-form-controls">
-                  <input class="uk-input" id="form-stacked-text" type="text" name="cons" value={{parking.cons}} />
-              </div>
-          </div>
-
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">Parking Description</label>
-            <div class="uk-form-controls">
-                <textarea class="uk-textarea" id="form-stacked-text" type="text" rows="5" name="description">{{parking.description}}</textarea>
-
+        <form action="/editparking/{{parking._id}}" method="POST">
+            <div class="uk-margin">
+                <div class="uk-inline uk-width-1-1">
+                  <label class="uk-form-label" for="form-stacked-text">Parking Name</label>
+                  <div class="uk-form-controls">
+                      <span class="uk-form-icon" uk-icon="icon: file-edit"></span>
+                      <input class="uk-input uk-form-large" id="form-stacked-text" type="text" name="name" value="{{parking.name}}" />
+                  </div>
+                </div>
             </div>
-        </div>
 
-          <div class="uk-margin">
-              <button class="submit uk-button uk-button-primary uk-button-large uk-width-1-1">Save</button>
-          </div>
-      </div>
-    </div>
-      {{> error }}
-  </form>
-</div>
+             <div class="uk-margin">
+                 <div class="uk-inline uk-width-1-1">
+                     <label class="uk-form-label" for="form-stacked-text">Category</label>
+                     <span class="uk-form-icon" uk-icon="icon: bookmark"></span>
+                     <select class="uk-select uk-form-large" id="form-stacked-text" name="category" value={{parking.category}}>
+                          <option value='Nature'>Nature</option>
+                          <option value='Public'>Public</option>
+                          <option value='Private'>Private</option>
+                          <option value='Camping'>Camping</option>
+                     </select>
+                 </div>
+             </div>
+
+              <div class="uk-margin">
+                  <div class="uk-inline uk-width-1-1">
+                      <label class="uk-form-label" for="form-stacked-text">Pros</label>
+                      <div class="uk-form-controls">
+                          <span class="uk-form-icon" uk-icon="icon: arrow-up"></span>
+                          <input class="uk-input uk-form-large uk-form-success" id="form-stacked-text" type="text" name="pros" value="{{parking.pros}}" />
+                      </div>
+                  </div>
+              </div>
+
+              <div class="uk-margin">
+                  <div class="uk-inline uk-width-1-1">
+                      <label class="uk-form-label" for="form-stacked-text">Cons</label>
+                      <div class="uk-form-controls">
+                          <span class="uk-form-icon" uk-icon="icon: arrow-down"></span>
+                          <input class="uk-input uk-form-large uk-form-danger" id="form-stacked-text" type="text" name="cons" value="{{parking.cons}}" />
+                      </div>
+                  </div>
+              </div>
+
+            <div class="uk-margin">
+                <div class="uk-inline uk-width-1-1">
+                    <label class="uk-form-label" for="form-stacked-text">Parking Description</label>
+                    <div class="uk-form-controls">
+                        <span class="uk-form-icon" uk-icon="icon: file-text"></span>
+                        <textarea class="uk-textarea uk-form-large" id="form-stacked-text" type="text" rows="10" name="description">{{parking.description}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+              <div class="uk-margin">
+                  <button class="submit uk-button uk-button-primary uk-button-large uk-width-1-1">Save</button>
+              </div>
+          {{> error }}
+        </form>

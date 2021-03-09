@@ -1,10 +1,15 @@
 <div class="uk-flex uk-flex-center uk-flex-middle uk-grid-small" uk-grid>
-  {{> title-card title="CamperPark" subTitle="Create a new parking"}}
+  {{> title-card title="CamperPark" subTitle="Edit parking"}}
   {{> main-menu }}
 </div>
 
 <div class="uk-container uk-margin">
-  <div class="uk-child-width-expand uk-flex-center uk-flex-middle uk-text-center" uk-grid>
-    <div class="uk-width-expand@m">{{> edit-parking}}</div>
-  </div>
+    <div class="uk-child-width-expand uk-flex-center uk-flex-middle uk-text-center" uk-grid>
+        <div class="uk-width-expand@m">
+            <div class="uk-card uk-card-default uk-width-xlarge uk-card-body uk-box-shadow-large">
+                <h3 class="uk-card-title uk-text-center">Edit Parking: </h3>
+                {{> edit-parking}}
+            </div>
+        </div>
+    </div>
 </div>

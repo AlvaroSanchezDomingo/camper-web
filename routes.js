@@ -18,7 +18,7 @@ module.exports = [
   { method: "GET", path: "/deleteparking/{id}", config: Parkings.deleteParking },
   { method: 'GET', path: "/editparking/{id}", config: Parkings.showEditParking },
   { method: "POST", path: "/editparking/{id}", config: Parkings.editParking },
-  { method: "POST", path: "/viewparking/{id}", config: Parkings.viewParking },
+  { method: "GET", path: "/viewparking/{id}", config: Parkings.viewParking },
 
 
   {
