@@ -2,7 +2,7 @@
 const Parking = require("../models/parking");
 const User = require("../models/user");
 const Joi = require("@hapi/joi");
-
+//
 const Parkings = {
 
   showParkings: {
