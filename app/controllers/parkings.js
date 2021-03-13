@@ -2,7 +2,8 @@
 const Parking = require("../models/parking");
 const User = require("../models/user");
 const Joi = require("@hapi/joi");
-//
+const ImageStore = require('../utils/image-store');
+
 const Parkings = {
 
   showParkings: {
@@ -23,15 +24,51 @@ const Parkings = {
   viewParking: {
     handler: async function(request, h) {
       try {
+        const allImages = await ImageStore.getAllImages();
         const id = request.params.id;
         const parking = await Parking.findById(id).populate("user").lean()
-        return h.view("showparking", { title: "View parking", parking: parking });
+        const data = {
+          parking: parking,
+          images: allImages,
+        }
+        return h.view("showparking", { title: "View parking", data: data});
       } catch (err) {
         return h.view("login", { errors: [{ message: err.message }] });
       }
     }
   },
-
+  uploadFile: {
+    handler: async function(request, h) {
+      try {
+        const parkingId = request.params.id;
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          await ImageStore.uploadImage(request.payload.imagefile);
+        }
+        return h.redirect(`/viewparking/${parkingId}`)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: 'data',
+      maxBytes: 209715200,
+      parse: true
+    }
+  },
+  deleteImage: {
+    handler: async function(request, h) {
+      try {
+        const parkingId = request.params.id;
+        await ImageStore.deleteImage(request.params.imageId);
+        return h.redirect(`/viewparking/${parkingId}`);
+      }
+       catch (err) {
+        console.log(err);
+      }
+    }
+  },
   newParking: {
     handler: function(request, h) {
       return h.view("newparking", { title: "Create new parking" });
