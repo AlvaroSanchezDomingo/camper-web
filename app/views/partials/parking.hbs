@@ -29,13 +29,24 @@
             </div>
 
             <div class="uk-container uk-padding-small">
-                {{data.parking._id}}
                 <div class="uk-child-width-1-4@s uk-flex uk-flex-center" uk-grid uk-height-match="target: .uk-card">
-                    {{#each data.images}}
-                        {{public_id}}
-                        {{lookup ../parking._id}}
-                        {{> card}}
-                    {{/each}}
+
+
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-small uk-text-center uk-text-baseline uk-animation-scale-up">
+                            <div class="uk-card-media-top">
+                                <img src="{{data.images.[0].url}}">
+                            </div>
+                            <div>
+                                <div class="uk-card-footer">
+                                    <p> {{data.images.[0].public_id}}</p>
+                                    <a href="/deleteimage/{{data.parking._id}}/{{data.images.[0].public_id}}" uk-icon="icon: trash"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
