@@ -43,7 +43,8 @@ const Parkings = {
         const parkingId = request.params.id;
         const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
-          await ImageStore.uploadImage(request.payload.imagefile);
+          //await ImageStore.uploadImage(request.payload.imagefile);
+          await ImageStore.uploadParkingImage(request.payload.imagefile, parkingId);
         }
         return h.redirect(`/viewparking/${parkingId}`)
       } catch (err) {

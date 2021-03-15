@@ -20,7 +20,7 @@ module.exports = [
   { method: "POST", path: "/editparking/{id}", config: Parkings.editParking },
   { method: "GET", path: "/viewparking/{id}", config: Parkings.viewParking },
   { method: 'POST', path: "/uploadfile/{id}", config: Parkings.uploadFile },
-  { method: 'POST', path: "/deleteimage/{id}/{imageId}", config: Parkings.deleteImage },
+  { method: 'GET', path: "/deleteimage/{id}/{imageId}", config: Parkings.deleteImage },
   {
     method: "GET",
     path: "/{param*}",
