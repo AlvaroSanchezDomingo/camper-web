@@ -1,0 +1,15 @@
+<div>
+    <div class="uk-card uk-card-default uk-card-small uk-text-center uk-text-baseline uk-animation-scale-up">
+        {{#each data.images}}
+            <div class="uk-card-media-top">
+                <img class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-light" src="{{url}}">
+            </div>
+            <div>
+                <div class="uk-card-footer">
+                    <a href="/deleteimage/{{../data.parking._id}}/{{public_id}}" uk-icon="icon: trash"></a>
+                </div>
+            </div>
+        {{/each}}
+
+    </div>
+</div>
