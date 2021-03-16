@@ -22,13 +22,13 @@ const ImageStore = {
 
   getParkingImages: async function(parkingId) {
     const result = await cloudinary.v2.api.resources(
-      { prefix: parkingId },
+      {  type: "upload",
+                prefix: parkingId.toString() },
       function(error, result) {console.log(result, error); });
 
     return result.resources;
   },
-
-
+  
 
   uploadImage: async function(imagefile) {
     await writeFile('./public/temp.img', imagefile);
@@ -37,9 +37,13 @@ const ImageStore = {
   uploadParkingImage: async function(imagefile, parkingId) {
     const timestamp = Date.now();
     const pictureName = parkingId.toString() + "_"+ timestamp.toString();
+    //const pictureName = parkingId.toString();
     await writeFile('./public/temp.img', imagefile);
-    await cloudinary.uploader.upload('./public/temp.img', {public_id : pictureName});
+    await cloudinary.v2.uploader.upload('./public/temp.img',
+      { public_id: pictureName },
+      function(error, result) {console.log(result, error); });
   },
+
   deleteImage: async function(id) {
     await cloudinary.v2.uploader.destroy(id, {});
   },
