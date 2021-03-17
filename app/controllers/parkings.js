@@ -24,8 +24,6 @@ const Parkings = {
   viewParking: {
     handler: async function(request, h) {
       try {
-        //const allImages = await ImageStore.getAllImages();
-
         const parkingId = request.params.id;
         const parking = await Parking.findById(parkingId).populate("user").lean()
         const allImages = await ImageStore.getParkingImages(parkingId);
@@ -39,38 +37,7 @@ const Parkings = {
       }
     }
   },
-  uploadFile: {
-    handler: async function(request, h) {
-      try {
-        const parkingId = request.params.id;
-        const file = request.payload.imagefile;
-        if (Object.keys(file).length > 0) {
-          await ImageStore.uploadParkingImage(request.payload.imagefile, parkingId);
-        }
-        return h.redirect(`/viewparking/${parkingId}`)
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    payload: {
-      multipart: true,
-      output: 'data',
-      maxBytes: 209715200,
-      parse: true
-    }
-  },
-  deleteImage: {
-    handler: async function(request, h) {
-      try {
-        const parkingId = request.params.id;
-        await ImageStore.deleteImage(request.params.imageId);
-        return h.redirect(`/viewparking/${parkingId}`);
-      }
-       catch (err) {
-        console.log(err);
-      }
-    }
-  },
+
   newParking: {
     handler: function(request, h) {
       return h.view("newparking", { title: "Create new parking" });
@@ -128,9 +95,14 @@ const Parkings = {
   showEditParking: {
     handler: async function (request, h) {
       try {
-        const id = request.params.id;
-        const parking = await Parking.findById(id).populate("user").lean()
-        return h.view("editparking", { title: "Edit parking", parking: parking });
+        const parkingId = request.params.id;
+        const parking = await Parking.findById(parkingId).populate("user").lean()
+        const allImages = await ImageStore.getParkingImages(parkingId);
+        const data = {
+          parking: parking,
+          images: allImages,
+        }
+        return h.view("editparking", { title: "Edit parking", data: data });
       } catch (err) {
         return h.view("login", { errors: [{ message: err.message }] });
       }
@@ -161,21 +133,52 @@ const Parkings = {
     handler: async function (request, h) {
       try {
         const parkingEdit = request.payload;
-        const id = request.params.id;
-        const parking = await Parking.findById(id).populate("user");
+        const parkingId = request.params.id;
+        const parking = await Parking.findById(parkingId).populate("user");
         parking.name = parkingEdit.name;
         parking.category = parkingEdit.category;
         parking.pros = parkingEdit.pros;
         parking.cons = parkingEdit.cons;
         parking.description = parkingEdit.description;
         await parking.save();
-        return h.redirect("/showparkings");
+        return h.redirect(`/editparking/${parkingId}`);
       } catch (err) {
         return h.view("main", { errors: [{ message: err.message }] });
       }
     },
   },
-
+  uploadFile: {
+    handler: async function(request, h) {
+      try {
+        const parkingId = request.params.id;
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          await ImageStore.uploadParkingImage(request.payload.imagefile, parkingId);
+        }
+        return h.redirect(`/editparking/${parkingId}`)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: 'data',
+      maxBytes: 209715200,
+      parse: true
+    }
+  },
+  deleteImage: {
+    handler: async function(request, h) {
+      try {
+        const parkingId = request.params.id;
+        await ImageStore.deleteImage(request.params.imageId);
+        return h.redirect(`/editparking/${parkingId}`);
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
+  },
 };
 
 module.exports = Parkings;

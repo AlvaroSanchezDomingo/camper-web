@@ -15,10 +15,6 @@ const ImageStore = {
     cloudinary.config(credentials);
   },
 
-  getAllImages: async function() {
-    const result = await cloudinary.v2.api.resources();
-    return result.resources;
-  },
 
   getParkingImages: async function(parkingId) {
     const result = await cloudinary.v2.api.resources(
@@ -28,12 +24,7 @@ const ImageStore = {
 
     return result.resources;
   },
-  
 
-  uploadImage: async function(imagefile) {
-    await writeFile('./public/temp.img', imagefile);
-    await cloudinary.uploader.upload('./public/temp.img');
-  },
   uploadParkingImage: async function(imagefile, parkingId) {
     const timestamp = Date.now();
     const pictureName = parkingId.toString() + "_"+ timestamp.toString();
@@ -46,6 +37,16 @@ const ImageStore = {
 
   deleteImage: async function(id) {
     await cloudinary.v2.uploader.destroy(id, {});
+  },
+  deleteParkingImages: async function(parkingId) {
+    const result = await cloudinary.v2.api.resources(
+      {  type: "upload",
+        prefix: parkingId.toString() },
+      async function(error, result) {
+        for(const image of result){
+          await cloudinary.v2.uploader.destroy(image.public_id, {});
+        }
+      });
   },
 
 };

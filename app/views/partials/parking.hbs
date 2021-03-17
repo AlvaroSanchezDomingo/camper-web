@@ -21,18 +21,10 @@
                     <p>{{data.parking.description}}</p>
                 </div>
 
-            <h1 class="uk-heading-primary">Parking Images</h1>
-            <div class="uk-child-width-1-1@m uk-grid-small uk-grid-match" uk-grid>
-                <div>
-                    {{> upload }}
+                <div class="uk-container uk-padding-small">
+                    <div class="uk-child-width-1-1@s uk-flex uk-flex-center" uk-grid uk-height-match="target: .uk-card">
+                        {{> images }}
+                    </div>
                 </div>
-            </div>
-
-            <div class="uk-container uk-padding-small">
-                <div class="uk-child-width-1-1@s uk-flex uk-flex-center" uk-grid uk-height-match="target: .uk-card">
-                    {{> card }}
-                </div>
-            </div>
         </div>
-
 </div>
