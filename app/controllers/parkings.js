@@ -87,8 +87,9 @@ const Parkings = {
   },
   deleteParking: {
     handler: async function(request, h) {
-      const id = request.params.id;
-      await Parking.deleteOne({ _id: id });
+      const parkingId = request.params.id;
+      await ImageStore.deleteParkingImages(parkingId);
+      await Parking.deleteOne({ _id: parkingId });
       return h.redirect("/showparkings");
     }
   },
