@@ -1,9 +1,6 @@
 <div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
     {{#each parkings}}
-        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
-            <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-                <img src="images/camper2.png" alt="" uk-cover>
-            </div>
+        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-1@s uk-margin" uk-grid>
             <div>
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
@@ -26,7 +23,7 @@
                     <p uk-margin>
                         <a href="/viewparking/{{_id}}" class="uk-button uk-button-primary uk-button-small" uk-icon="sign-in"></a>
                         <a href="/editparking/{{_id}}" class="uk-button uk-button-secondary uk-button-small" uk-icon="file-edit"></a>
-                        <a href="/deleteparking/{{_id}}" class="uk-button uk-button-danger uk-button-small" uk-icon="trash" onclick="UIkit.notification({message: 'Parking deleted'})"></a>
+                        <a href="/deleteparking/{{_id}}" class="uk-button uk-button-danger uk-button-small" uk-icon="trash"></a>
                     </p>
                 </div>
             </div>
