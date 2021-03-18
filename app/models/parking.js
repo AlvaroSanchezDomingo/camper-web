@@ -14,6 +14,7 @@ const parkingSchema = new Schema({
     ref: "User",
   },
 });
+
 parkingSchema.statics.findByUser = function(user) {
   return this.find({ user : user});
 };

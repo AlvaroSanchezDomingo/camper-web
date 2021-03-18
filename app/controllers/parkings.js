@@ -1,6 +1,7 @@
 "use strict";
 const Parking = require("../models/parking");
 const User = require("../models/user");
+const Admin = require("../models/admin");
 const Joi = require("@hapi/joi");
 const ImageStore = require('../utils/image-store');
 
@@ -21,9 +22,23 @@ const Parkings = {
       }
     }
   },
+  showAllParkings: {
+    handler: async function(request, h) {
+      try {
+        const parkings = await Parking.find().populate("user").lean();
+        return h.view("showparkings-list-admin", {
+          title: "All camper parking",
+          parkings: parkings,
+        });
+      } catch (err) {
+        return h.view("login", { errors: [{ message: err.message }] });
+      }
+    }
+  },
   viewParking: {
     handler: async function(request, h) {
       try {
+
         const parkingId = request.params.id;
         const parking = await Parking.findById(parkingId).populate("user").lean()
         const allImages = await ImageStore.getParkingImages(parkingId);
@@ -31,7 +46,18 @@ const Parkings = {
           parking: parking,
           images: allImages,
         }
-        return h.view("showparking", { title: "View parking", data: data});
+        const id = request.auth.credentials.id;
+        const user = await User.findById(id);
+        const admin = await Admin.findById(id);
+        if (!user && !admin) {
+          const message = "No user or admin found";
+          throw Boom.unauthorized(message);
+        }else if(user) {
+          return h.view("showparking", { title: "View parking", data: data});
+        }else if(admin) {
+          return h.view("showparking-admin", { title: "View parking", data: data});
+        }
+
       } catch (err) {
         return h.view("login", { errors: [{ message: err.message }] });
       }
