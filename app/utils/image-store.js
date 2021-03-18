@@ -42,11 +42,10 @@ const ImageStore = {
     const result = await cloudinary.v2.api.resources(
       {  type: "upload",
         prefix: parkingId.toString() },
-      async function(error, result) {
-        for(const image of result){
-          await cloudinary.v2.uploader.destroy(image.public_id, {});
-        }
-      });
+      function(error, result) {console.log(result, error); });
+      for(const image of result.resources){
+        await cloudinary.v2.uploader.destroy(image.public_id, {});
+      }
   },
 
 };
