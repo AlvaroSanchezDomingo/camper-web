@@ -1,5 +1,5 @@
 <div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-    {{#each users}}
+    {{#each admins}}
         <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-1@s uk-margin" uk-grid>
             <div>
                 <div class="uk-card-header">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="uk-card-footer">
                     <p uk-margin>
-                        <a href="/deleteuser/{{_id}}" class="uk-button uk-button-danger uk-button-small" uk-icon="trash"></a>
+                        <a href="/deleteadmin/{{_id}}" class="uk-button uk-button-danger uk-button-small" uk-icon="trash"></a>
                     </p>
                 </div>
             </div>
