@@ -1,8 +1,10 @@
 "use strict";
 const User = require("../models/user");
 const Admin = require("../models/admin");
+const Parking = require("../models/parking");
 const Boom = require("@hapi/boom");
 const Joi = require("@hapi/joi");
+const ImageStore = require('../utils/image-store');
 
 const Accounts = {
   index: {
@@ -166,9 +168,11 @@ const Accounts = {
     handler: async function(request, h) {
       try {
         const users = await User.find().lean();
+        const admins = await Admin.find().lean();
         return h.view("showusers-admin", {
           title: "Show users",
           users: users,
+          admins: admins,
         });
       } catch (err) {
         return h.view("login", { errors: [{ message: err.message }] });
@@ -177,12 +181,31 @@ const Accounts = {
   },
   deleteUser: {
     handler: async function(request, h) {
-      const userId = request.params.id;
-      //await ImageStore.deleteParkingImages(parkingId);
-      await User.deleteOne({ _id: userId });
+      try {
+        const userId = request.params.id;
+        const user = await User.findById(userId);
+        const parkings = await Parking.findByUser(user).lean();
+
+        for(const parking of parkings){
+          let parkingId = parking._id;
+          await ImageStore.deleteParkingImages(parkingId);
+        }
+        await Parking.deleteMany({ user: user });
+        await User.deleteOne({ _id: userId });
+        return h.redirect("/showusers");
+      } catch (err) {
+        return h.view("login", { errors: [{ message: err.message }] });
+      }
+    }
+  },
+  deleteAdmin: {
+    handler: async function(request, h) {
+      const adminId = request.params.id;
+      await Admin.deleteOne({ _id: adminId });
       return h.redirect("/showusers");
     }
   },
+
   showSettings: {
     handler: async function (request, h) {
       try {

@@ -13,8 +13,8 @@ module.exports = [
   { method: 'GET', path: '/settings', config: Accounts.showSettings },
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
   { method: 'GET', path: '/showusers', config: Accounts.showUsers },
-
   { method: "GET", path: "/deleteuser/{id}", config: Accounts.deleteUser },
+  { method: "GET", path: "/deleteadmin/{id}", config: Accounts.deleteAdmin },
   { method: "GET", path: "/showparkings", config: Parkings.showParkings },
   { method: "GET", path: "/showallparkings", config: Parkings.showAllParkings },
   { method: "GET", path: "/newparking", config: Parkings.newParking },
