@@ -77,6 +77,8 @@ const Parkings = {
         description: Joi.string().min(50).max(3000).required(),
         pros: Joi.string().max(200).required(),
         cons: Joi.string().max(200).required(),
+        lat: Joi.number().max(90).min(-90).required(),
+        long: Joi.number().max(90).min(-90).required(),
       },
       options: {
         abortEarly: false,
@@ -102,6 +104,8 @@ const Parkings = {
           category: data.category,
           pros: data.pros,
           cons: data.cons,
+          lat: data.lat,
+          long: data.long,
           user: user._id
         });
         await newParking.save();
@@ -135,6 +139,7 @@ const Parkings = {
       }
     },
   },
+
   editParking: {
     validate: {
       payload: {
@@ -143,6 +148,8 @@ const Parkings = {
         description: Joi.string().min(50).max(1000).required(),
         pros: Joi.string().max(100).required(),
         cons: Joi.string().max(100).required(),
+        lat: Joi.number().max(90).min(-90).required(),
+        long: Joi.number().max(90).min(-90).required(),
       },
       options: {
         abortEarly: false,
