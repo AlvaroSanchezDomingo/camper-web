@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Admin = require("../models/admin");
 const Joi = require("@hapi/joi");
 const ImageStore = require('../utils/image-store');
+const axios = require("axios");
 
 const Parkings = {
 
@@ -38,13 +39,24 @@ const Parkings = {
   viewParking: {
     handler: async function(request, h) {
       try {
-
         const parkingId = request.params.id;
         const parking = await Parking.findById(parkingId).populate("user").lean()
+
+        const apiKey = "S84DhNhKFuebGRZMU1FN8z0Ir9vwdzGj"
+        let weather = {};
+        const weatherRequest = `https://data.climacell.co/v4/timelines?location=${parking.lat},${parking.long}&fields=temperature&units=metric&apikey=${apiKey}`;
+        const response = await axios.get(weatherRequest)
+        if (response.status == 200) {
+          weather = response.data
+        }
+        const report = {
+          temp: weather.data.timelines[0].intervals[0].values.temperature,
+        }
         const allImages = await ImageStore.getParkingImages(parkingId);
         const data = {
           parking: parking,
           images: allImages,
+          weather:report,
         }
         const id = request.auth.credentials.id;
         const user = await User.findById(id);
@@ -173,6 +185,8 @@ const Parkings = {
         parking.category = parkingEdit.category;
         parking.pros = parkingEdit.pros;
         parking.cons = parkingEdit.cons;
+        parking.lat = parkingEdit.lat;
+        parking.long = parkingEdit.long;
         parking.description = parkingEdit.description;
         await parking.save();
         return h.redirect(`/editparking/${parkingId}`);
