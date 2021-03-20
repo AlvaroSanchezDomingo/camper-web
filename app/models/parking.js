@@ -7,6 +7,8 @@ const parkingSchema = new Schema({
   name: String,
   category: String,
   description: String,
+  lat: Number,
+  long: Number,
   pros: String,
   cons: String,
   user: {

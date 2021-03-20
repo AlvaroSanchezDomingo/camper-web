@@ -9,6 +9,12 @@ const Cookie = require("@hapi/cookie");
 const Joi = require("@hapi/joi");
 require("./app/models/db");
 const env = require("dotenv");
+const H = require('just-handlebars-helpers');
+
+// Register just-handlebars-helpers with handlebars
+H.registerHelpers(Handlebars);
+
+
 
 const server = Hapi.server({
   port: process.env.PORT || 3000,
