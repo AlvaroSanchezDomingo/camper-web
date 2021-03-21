@@ -21,6 +21,11 @@
                             <h3 class="uk-card-title uk-margin-remove-bottom">{{data.parking.name}}</h3>
                             <p class="uk-text-meta uk-margin-remove-top">{{data.parking.user.firstName}} {{data.parking.user.lastName}}</p>
                         </div>
+                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                            <div class="uk-width-auto">
+                                <h3>{{data.weather.temp}} C<h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="uk-card-body">
@@ -31,7 +36,6 @@
                 <div class="uk-card-footer">
                     <p>{{data.parking.description}}</p>
                 </div>
-
                 <div class="uk-container uk-padding-small">
                     <div class="uk-child-width-1-1@s uk-flex uk-flex-center" uk-grid uk-height-match="target: .uk-card">
                         {{> images }}
