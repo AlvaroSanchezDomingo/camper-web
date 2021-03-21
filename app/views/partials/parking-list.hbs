@@ -5,12 +5,27 @@
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
-                            <img class="uk-border-circle" width="40" height="40" src="images/camper2.png">
+                            {{#if (eq category 'Nature')}}
+                                <i class="fas fa-tree fa-2x" style="color:rgb(49,78,0)"></i>
+                            {{/if}}
+                            {{#if (eq category 'Public')}}
+                                <i class="fas fa-parking fa-2x" style="color:rgb(21,57,177)"></i>
+                            {{/if}}
+                            {{#if (eq category 'Private')}}
+                                <i class="fas fa-parking fa-2x" style="color:rgb(177,21,21)"></i>
+                            {{/if}}
+                            {{#if (eq category 'Camping')}}
+                                <i class="fas fa-campground fa-2x" style="color:rgb(217,238,33)"></i>
+                            {{/if}}
                             <p class="uk-text-meta uk-margin-remove-top">{{category}}</p>
                         </div>
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">{{name}}</h3>
                             <p class="uk-text-meta uk-margin-remove-top">{{user.firstName}} {{user.lastName}}</p>
+                        </div>
+                        <div class="uk-width-auto">
+                            <i class="fas fa-search-location fa-2x" style="color:rgb(44,97,1)"></i>
+                            <p class="uk-text-meta uk-margin-remove-top">{{lat}} , {{long}}</p>
                         </div>
                     </div>
                 </div>

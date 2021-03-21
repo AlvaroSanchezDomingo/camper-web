@@ -3,12 +3,28 @@
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
-                            <img class="uk-border-circle" width="40" height="40" src="../images/camper2.png">
+                            {{#if (eq data.parking.category 'Nature')}}
+                                <i class="fas fa-tree fa-2x" style="color:rgb(49,78,0)"></i>
+                            {{/if}}
+                            {{#if (eq data.parking.category 'Public')}}
+                                <i class="fas fa-parking fa-2x" style="color:rgb(21,57,177)"></i>
+                            {{/if}}
+                            {{#if (eq data.parking.category 'Private')}}
+                                <i class="fas fa-parking fa-2x" style="color:rgb(177,21,21)"></i>
+                            {{/if}}
+                            {{#if (eq data.parking.category 'Camping')}}
+                                <i class="fas fa-campground fa-2x" style="color:rgb(217,238,33)"></i>
+                            {{/if}}
                             <p class="uk-text-meta uk-margin-remove-top">{{data.parking.category}}</p>
                         </div>
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">{{data.parking.name}}</h3>
                             <p class="uk-text-meta uk-margin-remove-top">{{data.parking.user.firstName}} {{data.parking.user.lastName}}</p>
+                        </div>
+                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                            <div class="uk-width-auto">
+                                <h3>{{data.weather.temp}} C<h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -20,10 +36,26 @@
                 <div class="uk-card-footer">
                     <p>{{data.parking.description}}</p>
                 </div>
-
                 <div class="uk-container uk-padding-small">
                     <div class="uk-child-width-1-1@s uk-flex uk-flex-center" uk-grid uk-height-match="target: .uk-card">
                         {{> images }}
+                    </div>
+                </div>
+                <div class="uk-container uk-padding-small">
+                    <div class="uk-child-width-1-1@s uk-flex uk-flex-center" uk-grid >
+                        <div id="map" class="uk-height-large uk-card uk-card-default uk-card-body uk-flex uk-flex-center uk-flex-middle"></div>
+                        <script>
+                            var map = L.map('map', {
+                                center: [{{data.parking.lat}}, {{data.parking.long}}],
+                                zoom: 10
+                            });
+                            var gl = L.mapboxGL({
+                                attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
+                                style: 'https://api.maptiler.com/maps/streets/style.json?key=yWqm74AMhMupReAXYAiE'
+                            }).addTo(map);
+                            var marker = L.marker([{{data.parking.lat}}, {{data.parking.long}}]).addTo(map);
+                            marker.bindPopup("<b> {{data.parking.name}}</b>").openPopup();
+                        </script>
                     </div>
                 </div>
         </div>
