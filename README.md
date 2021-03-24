@@ -22,4 +22,34 @@ There are 4 categories in which the parking are devided, nature, private, public
 The project has been deployed using heroku. The application can be found in the following link.
 https://secure-savannah-15879.herokuapp.com/
 
+##Application
+###Main page
+<img src="https://github.com/AlvaroSanchezDomingo/camper-web/blob/master/screenshot/main.PNG">
 
+###Sign up
+<img src="https://github.com/AlvaroSanchezDomingo/camper-web/blob/master/screenshot/Signup.PNG">
+
+###Login
+<img src="https://github.com/AlvaroSanchezDomingo/camper-web/blob/master/screenshot/Login.PNG">
+
+###User dashboard
+<img src="https://github.com/AlvaroSanchezDomingo/camper-web/blob/master/screenshot/User%20dashboard.PNG">
+
+###Add parking
+<img src="https://github.com/AlvaroSanchezDomingo/camper-web/blob/master/screenshot/Add%20parking.PNG">
+
+###Change user settings
+<img src="https://github.com/AlvaroSanchezDomingo/camper-web/blob/master/screenshot/change%20user%20settings.PNG">
+
+###Admin view of current users
+<img src="https://github.com/AlvaroSanchezDomingo/camper-web/blob/master/screenshot/users.PNG">
+
+##Application
+To login and view parking.
+-User
+alvaro@sanchez.com
+secret
+
+-Admin
+admin@admin.com
+secret
