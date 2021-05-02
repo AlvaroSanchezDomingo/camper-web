@@ -1,7 +1,6 @@
 "use strict";
 const Parking = require("../models/parking");
 const User = require("../models/user");
-const Admin = require("../models/admin");
 const Joi = require("@hapi/joi");
 const ImageStore = require('../utils/image-store');
 const axios = require("axios");
