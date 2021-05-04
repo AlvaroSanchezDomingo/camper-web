@@ -1,5 +1,5 @@
 {
-  "service": "http://localhost:4000",
+  "service": "http://localhost:3000",
   "users": [
     {
       "firstName": "Homer",

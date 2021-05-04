@@ -3,10 +3,10 @@
 const User = require("../models/user");
 const Boom = require("@hapi/boom");
 
+
 const Users = {
   find: {
     auth: false,
-
     handler: async function (request, h) {
       const users = await User.find();
       return users;
@@ -15,7 +15,6 @@ const Users = {
 
   findOne: {
     auth: false,
-
     handler: async function (request, h) {
       try {
         const user = await User.findOne({ _id: request.params.id });
@@ -40,7 +39,6 @@ const Users = {
       return Boom.badImplementation("error creating user");
     },
   },
-
   deleteAll: {
     auth: false,
     handler: async function (request, h) {
@@ -48,7 +46,6 @@ const Users = {
       return { success: true };
     },
   },
-
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
@@ -62,7 +59,6 @@ const Users = {
 
   update: {
     auth: false,
-
     handler: async function (request, h) {
       const userEdit = request.payload;
       const user = await User.findById(userEdit._id);

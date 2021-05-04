@@ -2,7 +2,7 @@
 
 const axios = require("axios");
 
-class DonationService {
+class Service {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
@@ -139,4 +139,4 @@ class DonationService {
   }
 }
 
-module.exports = DonationService;
+module.exports = Service;
