@@ -2,7 +2,7 @@
 
 const User = require("../models/user");
 const Boom = require("@hapi/boom");
-
+const utils = require('./utils.js');
 
 const Users = {
   find: {

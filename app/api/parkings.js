@@ -27,7 +27,24 @@ const Parkings = {
       return parking;
     },
   },
-
+  create: {
+    auth: false,
+    handler: async function (request, h) {
+      const newParking = new Parking(request.payload);
+      const parking = await newParking.save();
+      if (parking) {
+        return h.response(parking).code(201);
+      }
+      return Boom.badImplementation("error creating candidate");
+    },
+  },
+  deleteAll: {
+    auth: false,
+    handler: async function (request, h) {
+      await Parking.deleteMany({});
+      return { success: true };
+    },
+  },
 };
 
 module.exports = Parkings;
