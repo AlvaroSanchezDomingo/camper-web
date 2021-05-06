@@ -31,8 +31,19 @@ suite("Candidate API tests", function () {
     await service.deleteAllParkings();
   });
 
-  test("get all users empty", async function () {
+  test("get all parkings empty", async function () {
     const allParkings = await service.getParkings();
     assert.equal(allParkings.length, 0);
+  });
+  test("get one parking", async function () {
+    const p1 = await service.createParking(newParking);
+    const allParkings = await service.getParkings();
+    assert.equal(allParkings.length, 1);
+    assert.equal(p1._id, allParkings[0]._id);
+  });
+  test("get parking", async function () {
+    const p1 = await service.createParking(newParking);
+    const p2 = await service.getParking(p1._id);
+    assert.deepEqual(p1, p2);
   });
 });

@@ -84,6 +84,15 @@ class Service {
       return null;
     }
   }
+  async getParking(id) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/parkings/"+ id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+  findById
   async deleteAllParkings() {
     try {
       const response = await axios.delete(this.baseUrl + "/api/parkings");

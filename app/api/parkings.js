@@ -2,18 +2,23 @@
 
 const Parking = require("../models/parking");
 const Boom = require("@hapi/boom");
+const utils = require("./utils.js");
 
 
 const Parkings = {
   findAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const parkings = await Parking.find();
       return parkings;
     },
   },
   findByUser: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const parkings = await Parking.find({ user: request.params.id });
       return parkings;
@@ -21,16 +26,22 @@ const Parkings = {
   },
 
   findById: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const parking = await Parking.findById(request.params.id);
       return parking;
     },
   },
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
-      const newParking = new Parking(request.payload);
+      const userId = utils.getUserIdFromRequest(request);
+      let newParking = new Parking(request.payload);
+      newParking.user = userId;
       const parking = await newParking.save();
       if (parking) {
         return h.response(parking).code(201);
@@ -39,7 +50,9 @@ const Parkings = {
     },
   },
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       await Parking.deleteMany({});
       return { success: true };
