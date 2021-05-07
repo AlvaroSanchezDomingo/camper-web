@@ -46,4 +46,48 @@ suite("Candidate API tests", function () {
     const p2 = await service.getParking(p1._id);
     assert.deepEqual(p1, p2);
   });
+  test("create multiple parkings", async function () {
+    for (var i = 0; i < parkings.length; i++) {
+      await service.createParking(parkings[i]);
+    }
+    const allParkings = await service.getParkings();
+    assert.equal(allParkings.length, parkings.length);
+  });
+  test("get parking by logged user", async function () {
+    const p1 = await service.createParking(newParking);
+    const parkingsUser = await service.getParkingUser();
+    assert.equal(parkingsUser.length, 1);
+    assert.deepEqual(p1, parkingsUser[0]);
+  });
+  test("delete parking by id", async function () {
+    for (var i = 0; i < parkings.length; i++) {
+      await service.createParking(parkings[i]);
+    }
+    const parkingsUser = await service.getParkingUser();
+    assert.equal(parkingsUser.length, 3);
+    await service.deleteParkingsId(parkingsUser[0]._id)
+    const allParkings = await service.getParkings();
+    assert.equal(allParkings.length, 2);
+    assert.equal(allParkings[0].name, parkings[1].name);
+  });
+  test("update parking", async function () {
+    const p1 = await service.createParking(newParking);
+    const parkingsUser = await service.getParkingUser();
+
+    assert.equal(parkingsUser[0].name, newParking.name);
+    const updateParking = {
+      name: "updated name",
+      category: "Public",
+      description: "Updated description",
+      lat: "12.3",
+      long: "12.3",
+      pros: "Updated pro",
+      cons: "Updated con",
+    }
+    const updatedParking = await service.updateParking(parkingsUser[0]._id, updateParking)
+    console.log(updatedParking)
+    console.log(updateParking)
+    assert.equal(updatedParking.name, updateParking.name);
+
+  });
 });
