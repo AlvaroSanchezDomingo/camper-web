@@ -1,7 +1,6 @@
 "use strict";
 const Parking = require("../models/parking");
 const User = require("../models/user");
-const Admin = require("../models/admin");
 const Joi = require("@hapi/joi");
 const ImageStore = require('../utils/image-store');
 const axios = require("axios");
@@ -60,14 +59,11 @@ const Parkings = {
         }
         const id = request.auth.credentials.id;
         const user = await User.findById(id);
-        const admin = await Admin.findById(id);
-        if (!user && !admin) {
-          const message = "No user or admin found";
+        if (!user) {
+          const message = "No user found";
           throw Boom.unauthorized(message);
-        }else if(user) {
+        }else{
           return h.view("showparking", { title: "View parking", data: data});
-        }else if(admin) {
-          return h.view("showparking-admin", { title: "View parking", data: data});
         }
 
       } catch (err) {

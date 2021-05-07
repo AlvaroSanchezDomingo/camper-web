@@ -25,4 +25,4 @@ parkingSchema.statics.findById = function(id) {
   return this.findOne({ _id : id});
 };
 
-module.exports = Mongoose.model("parking", parkingSchema);
+module.exports = Mongoose.model("Parking", parkingSchema);
