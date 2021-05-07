@@ -11,12 +11,15 @@ suite("User API tests", function () {
 
   const service = new Service(fixtures.service);
 
-  setup(async function () {
+  suiteSetup(async function () {
     await service.deleteAllUsers();
+    const returnedUser = await service.createUser(newUser);
+    const response = await service.authenticate(newUser);
   });
 
-  teardown(async function () {
+  suiteTeardown(async function () {
     await service.deleteAllUsers();
+    service.clearAuth();
   });
   test("create a user", async function () {
     const returnedUser = await service.createUser(newUser);
@@ -42,17 +45,29 @@ suite("User API tests", function () {
     assert(u == null);
   });
   test("get all users", async function () {
+    await service.deleteAllUsers();
+    await service.createUser(newUser);
+    await service.authenticate(newUser);
     for (let u of users) {
       await service.createUser(u);
     }
     const allUsers = await service.getUsers();
-    assert.equal(allUsers.length, users.length);
+    assert.equal(allUsers.length, users.length + 1);
   });
   test("get users detail", async function () {
+    await service.deleteAllUsers();
+    const user = await service.createUser(newUser);
+    await service.authenticate(newUser);
     for (let u of users) {
       await service.createUser(u);
     }
-
+    const testUser = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+    };
+    users.unshift(testUser);
     const allUsers = await service.getUsers();
     for (var i = 0; i < users.length; i++) {
       assert(_.some([allUsers[i]], users[i]), "returnedUser must be a superset of newUser");
@@ -60,7 +75,10 @@ suite("User API tests", function () {
   });
 
   test("get all users empty", async function () {
+    await service.deleteAllUsers();
+    const user = await service.createUser(newUser);
+    await service.authenticate(newUser);
     const allUsers = await service.getUsers();
-    assert.equal(allUsers.length, 0);
+    assert.equal(allUsers.length, 1);
   });
 });

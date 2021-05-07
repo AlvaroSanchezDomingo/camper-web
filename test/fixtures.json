@@ -25,5 +25,43 @@
     "lastName": "Simpson",
     "email": "maggie@simpson.com",
     "password": "secret"
+  },
+  "parkings": [
+    {
+      "name": "New parking 1",
+      "category": "Nature",
+      "description": "some description here",
+      "lat": -6,
+      "long": 57,
+      "pros": "Good",
+      "cons": "Bad"
+    },
+    {
+      "name": "New parking 2",
+      "category": "Nature",
+      "description": "some description here",
+      "lat": -6,
+      "long": 57,
+      "pros": "Good",
+      "cons": "Bad"
+    },
+    {
+      "name": "New parking 3",
+      "category": "Nature",
+      "description": "some description here",
+      "lat": -6,
+      "long": 57,
+      "pros": "Good",
+      "cons": "Bad"
+    }
+  ],
+  "newParking": {
+    "name": "New parking",
+    "category": "Nature",
+    "description": "some description here",
+    "lat": -6,
+    "long": 57,
+    "pros": "Good",
+    "cons": "Bad"
   }
 }

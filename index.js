@@ -10,6 +10,7 @@ const Joi = require("@hapi/joi");
 require("./app/models/db");
 const env = require("dotenv");
 const H = require('just-handlebars-helpers');
+const utils = require("./app/api/utils.js");
 
 // Register just-handlebars-helpers with handlebars
 H.registerHelpers(Handlebars);
@@ -41,6 +42,7 @@ async function init() {
   await server.register(Inert);
   await server.register(Vision);
   await server.register(Cookie);
+  await server.register(require('hapi-auth-jwt2'));
 
   ImageStore.configure(credentials);
 
@@ -63,6 +65,11 @@ async function init() {
       isSecure: false,
     },
     redirectTo: "/",
+  });
+  server.auth.strategy("jwt", "jwt", {
+    key: "secretpasswordnotrevealedtoanyone",
+    validate: utils.validate,
+    verifyOptions: { algorithms: ["HS256"] },
   });
   server.auth.default("session");
   server.route(require("./routes"));
