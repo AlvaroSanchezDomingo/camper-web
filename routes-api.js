@@ -13,6 +13,10 @@ module.exports = [
 
   { method: "GET", path: "/api/parkings", config: Parkings.findAll },
   { method: "GET", path: "/api/parkings/{id}", config: Parkings.findById },
+  { method: "GET", path: "/api/parkings/user", config: Parkings.findByUser },
   { method: "DELETE", path: "/api/parkings", config: Parkings.deleteAll },
+  { method: "DELETE", path: "/api/parkings/{id}", config: Parkings.deleteById },
   { method: "POST", path: "/api/parkings", config: Parkings.create },
+  { method: "POST", path: "/api/parkings/update/{id}", config: Parkings.updateParking },
+
 ];

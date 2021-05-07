@@ -52,9 +52,6 @@ class Service {
     }
   }
 
-
-
-
   async authenticate(user) {
     try {
       const response = await axios.post(this.baseUrl + "/api/users/authenticate", user);
@@ -76,6 +73,14 @@ class Service {
       return null;
     }
   }
+  async updateParking(id, updatedParking) {
+    try {
+      const response = await axios.post(this.baseUrl + "/api/parkings/update/"+id, updatedParking);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
   async getParkings() {
     try {
       const response = await axios.get(this.baseUrl + "/api/parkings");
@@ -92,7 +97,14 @@ class Service {
       return null;
     }
   }
-  findById
+  async getParkingUser() {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/parkings/user");
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
   async deleteAllParkings() {
     try {
       const response = await axios.delete(this.baseUrl + "/api/parkings");
@@ -101,6 +113,15 @@ class Service {
       return null;
     }
   }
+  async deleteParkingsId(id) {
+    try {
+      const response = await axios.delete(this.baseUrl + "/api/parkings/"+ id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
 
 }
 

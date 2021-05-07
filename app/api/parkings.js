@@ -20,7 +20,8 @@ const Parkings = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      const parkings = await Parking.find({ user: request.params.id });
+      const userId = utils.getUserIdFromRequest(request);
+      const parkings = await Parking.find({ user: userId });
       return parkings;
     },
   },
@@ -58,6 +59,38 @@ const Parkings = {
       return { success: true };
     },
   },
+  deleteById: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      const parking = await Parking.deleteOne({ _id: request.params.id });
+      if (parking) {
+        return { success: true };
+      }
+      return Boom.notFound("id not found");
+    },
+  },
+  updateParking: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      const parkingEdit = request.payload;
+      const parking = await Parking.findById(request.params.id);
+      parking.name = parkingEdit.name;
+      parking.category = parkingEdit.category;
+      parking.description = parkingEdit.description;
+      parking.lat = parkingEdit.lat;
+      parking.long = parkingEdit.long;
+      parking.pros = parkingEdit.pros;
+      parking.cons = parkingEdit.cons;
+      await parking.save();
+      if (parking) {
+        return h.response(parking).code(201);
+      }
+      return Boom.notFound("error saving parking");
+    },
+  },
 };
-
 module.exports = Parkings;
