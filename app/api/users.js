@@ -76,6 +76,7 @@ const Users = {
       user.lastName = userEdit.lastName;
       user.email = userEdit.email;
       user.password = userEdit.password;
+      user.level = userEdit.level;
       await user.save();
       if (user) {
         return { success: true };
@@ -89,13 +90,14 @@ const Users = {
     handler: async function (request, h) {
       try {
         const user = await User.findOne({ email: request.payload.email });
+        console.log(user)
         if (!user) {
           return Boom.unauthorized("User not found");
         } else if (user.password !== request.payload.password) {
           return Boom.unauthorized("Invalid password");
         } else {
           const token = utils.createToken(user);
-          return h.response({ success: true, token: token }).code(201);
+          return h.response({ success: true, token: token ,level:user.level}).code(201);
         }
       } catch (err) {
         return Boom.notFound("internal db failure");
