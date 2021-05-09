@@ -11,7 +11,7 @@ const Parkings = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      const parkings = await Parking.find();
+      const parkings = await Parking.find().populate("user");;
       return parkings;
     },
   },
@@ -21,7 +21,7 @@ const Parkings = {
     },
     handler: async function (request, h) {
       const userId = utils.getUserIdFromRequest(request);
-      const parkings = await Parking.find({ user: userId });
+      const parkings = await Parking.find({ user: userId }).populate("user");;
       return parkings;
     },
   },

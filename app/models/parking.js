@@ -22,7 +22,7 @@ parkingSchema.statics.findByUser = function(user) {
 };
 
 parkingSchema.statics.findById = function(id) {
-  return this.findOne({ _id : id});
+  return this.findOne({ _id : id}).populate("user");
 };
 
 module.exports = Mongoose.model("Parking", parkingSchema);
