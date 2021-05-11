@@ -5,14 +5,14 @@
         "firstName": "Homer",
         "lastName": "Simpson",
         "email": "homer@simpson.com",
-        "password": "secret",
+        "password": "$2a$10$5O/aT42VNvLpZ.Jy2hymMuxLK8nTr.wuNweRgEbG5BLaEP8hR/4Aq",
         "level":1
       },
       "admin": {
         "firstName": "admin",
         "lastName": "admin",
         "email": "admin@admin.com",
-        "password": "secret",
+        "password": "$2a$10$N9lho1Z0eL1d9ygFFMhyDehZ/HkzLNHGFo7nElhloAoTVcRksPasy",
         "level":0
       }
     },

@@ -3,6 +3,9 @@
 const User = require("../models/user");
 const Boom = require("@hapi/boom");
 const utils = require('./utils.js');
+const Joi = require("@hapi/joi");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const Users = {
   find: {
@@ -35,7 +38,14 @@ const Users = {
   create: {
     auth: false,
     handler: async function (request, h) {
-      const newUser = new User(request.payload);
+      const payload = request.payload;
+      const hash = await bcrypt.hash(payload.password, saltRounds);
+      const newUser = new User({
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        email: payload.email,
+        password: hash,
+      });
       const user = await newUser.save();
       if (user) {
         return h.response(user).code(201);
@@ -90,15 +100,13 @@ const Users = {
     handler: async function (request, h) {
       try {
         const user = await User.findOne({ email: request.payload.email });
-        console.log(user)
         if (!user) {
           return Boom.unauthorized("User not found");
-        } else if (user.password !== request.payload.password) {
-          return Boom.unauthorized("Invalid password");
-        } else {
-          const token = utils.createToken(user);
-          return h.response({ success: true, token: token ,level:user.level}).code(201);
         }
+        await user.comparePassword(request.payload.password);
+        const token = utils.createToken(user);
+        return h.response({ success: true, token: token ,level:user.level}).code(201);
+
       } catch (err) {
         return Boom.notFound("internal db failure");
       }
