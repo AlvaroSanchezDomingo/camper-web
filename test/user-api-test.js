@@ -23,7 +23,9 @@ suite("User API tests", function () {
   });
   test("create a user", async function () {
     const returnedUser = await service.createUser(newUser);
-    assert(_.some([returnedUser], newUser), "returnedUser must be a superset of newUser");
+    console.log(returnedUser)
+    console.log(newUser)
+    assert.equal(returnedUser.email, newUser.email);
     assert.isDefined(returnedUser._id);
   });
   test("get users", async function () {
@@ -70,7 +72,7 @@ suite("User API tests", function () {
     users.unshift(testUser);
     const allUsers = await service.getUsers();
     for (var i = 0; i < users.length; i++) {
-      assert(_.some([allUsers[i]], users[i]), "returnedUser must be a superset of newUser");
+      assert.equal(allUsers[i].name, users[i].name);
     }
   });
 
