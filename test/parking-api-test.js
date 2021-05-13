@@ -44,7 +44,7 @@ suite("Candidate API tests", function () {
   test("get parking", async function () {
     const p1 = await service.createParking(newParking);
     const p2 = await service.getParking(p1._id);
-    assert.deepEqual(p1, p2);
+    assert.equal(p1.name, p2.name);
   });
   test("create multiple parkings", async function () {
     for (var i = 0; i < parkings.length; i++) {
@@ -57,7 +57,7 @@ suite("Candidate API tests", function () {
     const p1 = await service.createParking(newParking);
     const parkingsUser = await service.getParkingUser();
     assert.equal(parkingsUser.length, 1);
-    assert.deepEqual(p1, parkingsUser[0]);
+    assert.equal(p1._id, parkingsUser[0]._id);
   });
   test("delete parking by id", async function () {
     for (var i = 0; i < parkings.length; i++) {
@@ -85,9 +85,6 @@ suite("Candidate API tests", function () {
       cons: "Updated con",
     }
     const updatedParking = await service.updateParking(parkingsUser[0]._id, updateParking)
-    console.log(updatedParking)
-    console.log(updateParking)
     assert.equal(updatedParking.name, updateParking.name);
-
   });
 });
